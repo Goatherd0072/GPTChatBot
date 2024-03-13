@@ -1,4 +1,4 @@
-# UnityGPTChatBot
+# UnityTalkAI
  一个接入语言模型Api实现的对话项目。
 
 因为方便测试，使用的语言模型为星火认知大模型和通义前问。
