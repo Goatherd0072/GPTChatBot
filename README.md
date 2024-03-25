@@ -9,11 +9,11 @@
 
 通过API接入能够进行对话，右上角会显示出通过阿里情绪识别分析出的对话情绪。
 
-![image-20240314215219132](assets/README/image-20240314215219132.png)
+![image-20240314215219132](README/image-20240314215219132.png)
 
 API的配置信息构建了ScriptableObject脚本，通过右键创建配置挂到模型GameObject上即可。
 
-![image-20240314215548827](assets/README/image-20240314215548827.png)
+![image-20240314215548827](README/image-20240314215548827.png)
 
 ## Reference
 
