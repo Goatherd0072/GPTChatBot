@@ -6,39 +6,39 @@ using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
+#region 请求构造体
+[Serializable]
+public class QwenRequest
+{
+    public string model;
+    public QwenInput input;
+    public QwenParameters parameters;
+}
+
+[Serializable]
+public class QwenInput
+{
+    public List<ChatContent> messages;
+}
+
+[Serializable]
+public class QwenParameters
+{
+    public float top_p;//取值范围为（0,1.0)，取值越大，生成的随机性越高；取值越低，生成的随机性越低。
+    public float top_k;//取值越大，生成的随机性越高；取值越小，生成的确定性越高。
+    public float repetition_penalty;//可以降低模型生成的重复度。1.0表示不做惩罚。
+    public float temperature;//用于控制随机性和多样性的程度。取值范围：[0, 2)
+}
+#endregion
+
 public class QwenChatHelper : NLPBaseHelper
 {
-    #region 请求构造体
-    [Serializable]
-    class QwenRequest
-    {
-        public string model;
-        public QwenInput input;
-        public QwenParameters parameters;
-    }
-
-    [Serializable]
-    class QwenInput
-    {
-        public List<ChatContent> messages;
-    }
-
-    [Serializable]
-    class QwenParameters
-    {
-        public float top_p;//取值范围为（0,1.0)，取值越大，生成的随机性越高；取值越低，生成的随机性越低。
-        public float top_k;//取值越大，生成的随机性越高；取值越小，生成的确定性越高。
-        public float repetition_penalty;//可以降低模型生成的重复度。1.0表示不做惩罚。
-        public float temperature;//用于控制随机性和多样性的程度。取值范围：[0, 2)
-    }
-    #endregion
-
     public QwenChatConfig qwenConfig;
 
-    private void OnValidate()
-    {
-        ResetDataList();
-    }
+    // private void OnValidate()
+    // {
+    //     ResetDataList();
+    // }
 
     public override void Init()
     {
@@ -51,14 +51,14 @@ public class QwenChatHelper : NLPBaseHelper
         sendDataList.Add(new ChatContent { role = "system", content = qwenConfig.prompt });
     }
 
-    public override void PostMessage(string message, Action<string> callback)
+    public override void PostMessage(string message)
     {
         sendDataList.Add(new ChatContent { role = "user", content = message });
         CheckSendLength(qwenConfig.maxHistory);
-        StartCoroutine(RequestMessage(callback));
+        StartCoroutine(RequestMessage());
     }
 
-    public IEnumerator RequestMessage(Action<string> callback)
+    private IEnumerator RequestMessage()
     {
         using (UnityWebRequest request = new UnityWebRequest(qwenConfig.url, "POST"))
         {
@@ -94,29 +94,37 @@ public class QwenChatHelper : NLPBaseHelper
 
             yield return request.SendWebRequest();
 
-            // string _msg = request.downloadHandler.text;
-            // Debug.Log(_msg);
             if (request.responseCode == 200)
             {
                 string _msg = request.downloadHandler.text;
-                Debug.Log(_msg);
-
-                JObject jsonObj = JObject.Parse(_msg);
-                string resp = (string)jsonObj["output"]["text"];
-                int tokens = (int)jsonObj["usage"]["total_tokens"];
-
-                Debug.Log("请求成功: " + resp);
-                Debug.Log($"本次消耗token数: {tokens}");
-
-                sendDataList.Add(new ChatContent { role = "assistant", content = resp });
-                callback(resp);
-                EmotionAnalyze(resp);
+                HandlingRespond(_msg);
             }
             else
             {
                 Debug.LogError("请求失败: " + request.responseCode);
             }
+            // string _msg = request.downloadHandler.text;
         }
+    }
+
+    /// <summary>
+    /// 处理返回的信息
+    /// </summary>
+    /// <param name="requestMsg"></param>
+    /// <param name="callback"></param> <summary>
+    private void HandlingRespond(string requestMsg)
+    {
+        Debug.Log(requestMsg);
+
+        JObject jsonObj = JObject.Parse(requestMsg);
+        string resp = (string)jsonObj["output"]["text"];
+        int tokens = (int)jsonObj["usage"]["total_tokens"];
+
+        Debug.Log("请求成功: " + resp);
+        Debug.Log($"本次消耗token数: {tokens}");
+
+        sendDataList.Add(new ChatContent { role = "assistant", content = resp });
+        onReceiveMessage.Invoke(resp);
     }
 
 }

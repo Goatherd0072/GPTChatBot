@@ -1,24 +1,28 @@
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class NLPBaseHelper : MonoBehaviour
 {
     /// <summary>
-    /// 发生的信息list
+    /// 发送的信息list
     /// </summary> 
     public List<ChatContent> sendDataList = new();
-    public EmotionAnalyzeAli emotionAnalyze;
-    public TMP_Text emotionText;
+    public UnityEvent<string> onReceiveMessage;
 
     /// <summary>
     /// 初始化模型配置
     /// </summary>
     public abstract void Init();
-    public abstract void PostMessage(string message, Action<string> callback);
+    public abstract void PostMessage(string message);
 
     // public abstract IEnumerator RequestMessage(Action<string> callback);
+
+    /// <summary>
+    /// 将发生的信息限制在maxHistory长度内
+    /// </summary>
+    /// <param name="maxHistory"></param>
     protected void CheckSendLength(int maxHistory)
     {
         if (maxHistory < 0)
@@ -28,13 +32,6 @@ public abstract class NLPBaseHelper : MonoBehaviour
         {
             sendDataList.RemoveAt(1);
         }
-    }
-    public void EmotionAnalyze(string context)
-    {
-        var (emotion, allEmotionJson) = emotionAnalyze.GetEmotion(context);
-        // Debug.Log(output);
-        emotionText.text = emotion;
-        Debug.Log($"情绪分析结果：{allEmotionJson}");
     }
 }
 

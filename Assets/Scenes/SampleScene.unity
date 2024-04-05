@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 84445704}
   - component: {fileID: 84445703}
   m_Layer: 0
-  m_Name: EmoAnalyze
+  m_Name: AliEmoAnalyze
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -295,12 +295,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 84445702}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1421145251}
+  m_Father: {fileID: 620801446}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &93301161
 GameObject:
@@ -741,6 +741,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &620801445
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 620801446}
+  m_Layer: 0
+  m_Name: EmoAnalyzeModel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &620801446
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620801445}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 84445704}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &720138161
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,6 +1036,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 729887845}
   m_CullTransparentMesh: 1
+--- !u!1 &748800209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 748800210}
+  - component: {fileID: 748800211}
+  m_Layer: 0
+  m_Name: OpanAI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &748800210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748800209}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1421145251}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &748800211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748800209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f5f9100a7167bd48b427f97b64a1fd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendDataList: []
+  onReceiveMessage:
+    m_PersistentCalls:
+      m_Calls: []
+  OpenAIConfig: {fileID: 0}
 --- !u!1 &764458257
 GameObject:
   m_ObjectHideFlags: 0
@@ -1415,7 +1496,7 @@ GameObject:
   - component: {fileID: 1203582072}
   - component: {fileID: 1203582071}
   m_Layer: 5
-  m_Name: UIManager
+  m_Name: Sample
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1520,12 +1601,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11780b7c61f076d42a5b8d37946d1ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tMPInput_InputField: {fileID: 2014192688}
-  btn_sendButton: {fileID: 372420819}
-  go_textBox: {fileID: 7905277834362530086, guid: 3333b6d13c07f8846afa351336899a04, type: 3}
+  tmpInputField: {fileID: 2014192688}
+  btnSendButton: {fileID: 372420819}
+  goTextBox: {fileID: 7905277834362530086, guid: 3333b6d13c07f8846afa351336899a04, type: 3}
   spawnRoot: {fileID: 1593263836}
-  nLPBaseHelper: {fileID: 1430628714}
-  _inputText: 
+  nlpBaseHelper: {fileID: 748800211}
+  inputText: 
+  needEmotionAnalyze: 0
+  emotionAnalyze: {fileID: 84445703}
+  emotionText: {fileID: 1489774383}
 --- !u!1 &1421145250
 GameObject:
   m_ObjectHideFlags: 0
@@ -1551,13 +1635,13 @@ Transform:
   m_GameObject: {fileID: 1421145250}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 355.58856, y: 737.99347, z: -14.870268}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1797622092}
   - {fileID: 1430628715}
-  - {fileID: 84445704}
+  - {fileID: 748800210}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1430628713
@@ -1590,8 +1674,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sendDataList: []
-  emotionAnalyze: {fileID: 84445703}
-  emotionText: {fileID: 1489774383}
+  onReceiveMessage:
+    m_PersistentCalls:
+      m_Calls: []
   qwenConfig: {fileID: 0}
 --- !u!4 &1430628715
 Transform:
@@ -1601,8 +1686,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430628713}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 278.3913, y: -65.18787, z: 2.2309685}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1896,8 +1981,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1797622090}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 719.72296, y: 8.513855, z: 9.177158}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1916,8 +2001,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sendDataList: []
-  emotionAnalyze: {fileID: 84445703}
-  emotionText: {fileID: 1489774383}
+  onReceiveMessage:
+    m_PersistentCalls:
+      m_Calls: []
   sparkConfig: {fileID: 0}
 --- !u!1 &2014192686
 GameObject:
@@ -2178,3 +2264,4 @@ SceneRoots:
   - {fileID: 1203582074}
   - {fileID: 1035472716}
   - {fileID: 1421145251}
+  - {fileID: 620801446}
